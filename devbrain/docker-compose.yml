@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  devbrain-hub:
+    build: .
+    container_name: devbrain-hub-app
+    ports:
+      - "8080:80"
+    restart: unless-stopped

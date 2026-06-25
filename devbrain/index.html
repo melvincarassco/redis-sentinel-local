@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevBrain - The Shared Knowledge & Rules Engine</title>
+  <meta name="description" content="AI-first collaborative rules and coding guidelines sharing hub for modern developers and engineering teams.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div id="app-container">
+    <!-- Sidebar Navigation -->
+    <aside>
+      <div class="logo-section">
+        <div class="logo-icon">🧠</div>
+        <div class="logo-text">DevBrain</div>
+      </div>
+
+      <nav>
+        <ul>
+          <li>
+            <button class="nav-btn active" id="nav-marketplace">
+              <i class="fa-solid fa-store"></i> Marketplace
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" id="nav-builder">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Rule Builder
+            </button>
+          </li>
+          <li>
+            <button class="nav-btn" id="nav-docs">
+              <i class="fa-solid fa-terminal"></i> CLI & Sync
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>DevBrain Hub v1.0.0</p>
+        <p>Built with Vanilla JS & CSS</p>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main>
+      
+      <!-- Marketplace Tab -->
+      <section id="tab-marketplace" class="tab-content active">
+        <div class="page-header">
+          <h1 class="page-title">Rules Marketplace</h1>
+          <p class="page-desc">Browse and subscribe to community-driven, AI-ready rule configurations (.cursorrules) for your favorite frameworks.</p>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="marketplace-search" class="search-input" placeholder="Search by framework, database, author or SSO...">
+          </div>
+          <div class="filter-tags" id="tag-filters">
+            <button class="tag-btn active" data-filter="all">All Rules</button>
+            <button class="tag-btn" data-filter="Next.js">Next.js</button>
+            <button class="tag-btn" data-filter="Python">Python/FastAPI</button>
+            <button class="tag-btn" data-filter="Database">Database</button>
+            <button class="tag-btn" data-filter="Authentication">Authentication</button>
+            <button class="tag-btn" data-filter="Cost Saving">Cost Optimization</button>
+          </div>
+        </div>
+
+        <div class="rules-grid" id="rules-grid">
+          <!-- Dynamically populated card items -->
+        </div>
+      </section>
+
+      <!-- Rule Builder Tab -->
+      <section id="tab-builder" class="tab-content">
+        <div class="page-header">
+          <h1 class="page-title">Rule Builder</h1>
+          <p class="page-desc">Design and assemble custom system instructions for your team. Watch the generated instructions compile in real time.</p>
+        </div>
+
+        <div class="builder-layout">
+          <!-- Design Form Panel -->
+          <div class="builder-panel">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="rule-title">Rule Title</label>
+                <input type="text" id="rule-title" class="form-input" placeholder="e.g. Next.js Caching Best Practices" value="My Project Auth Rules">
+              </div>
+              <div class="form-group">
+                <label for="rule-framework">Framework / Tech</label>
+                <input type="text" id="rule-framework" class="form-input" placeholder="e.g. Next.js, Spring Boot" value="Next.js 14">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="rule-desc">Description</label>
+              <textarea id="rule-desc" class="form-textarea" placeholder="Describe the purpose of this rule file...">Architecture rules for route protection, auth UI styling, and session configurations.</textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="rule-lang">Language</label>
+                <select id="rule-lang" class="form-select">
+                  <option value="TypeScript">TypeScript</option>
+                  <option value="JavaScript">JavaScript</option>
+                  <option value="Python">Python</option>
+                  <option value="Go">Go</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="rule-tags">Tags (Comma Separated)</label>
+                <input type="text" id="rule-tags" class="form-input" placeholder="e.g. Authentication, Database" value="SSO, Security, Auth0">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="rule-structure">Enforced Folder / Project Structure</label>
+              <textarea id="rule-structure" class="form-textarea" placeholder="e.g. Models go in /models, APIs in /api...">- Keep auth routes under src/app/auth/
+- Implement route validation inside src/middleware.ts
+- Store secure keys in .env.local only (never commit them)</textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="rule-patterns">Mandatory Code Patterns & Snippets</label>
+              <textarea id="rule-patterns" class="form-textarea" placeholder="Write custom guidelines, code patterns, or templates here...">1. Always fetch the session context using server-side auth helper.
+2. Check user roles on all protected API paths.
+3. Fallback gracefully to redirect page if session token is expired.</textarea>
+            </div>
+          </div>
+
+          <!-- Real-time Preview Panel -->
+          <div class="preview-panel">
+            <div class="preview-header">
+              <div class="preview-tabs">
+                <button class="preview-tab-btn active" id="btn-preview-cursor">.cursorrules</button>
+                <button class="preview-tab-btn" id="btn-preview-agents">AGENTS.md</button>
+              </div>
+              <div style="display:flex; gap: 0.5rem;">
+                <button class="action-btn secondary" id="btn-copy-rule"><i class="fa-regular fa-copy"></i> Copy</button>
+                <button class="action-btn" id="btn-publish-rule"><i class="fa-solid fa-cloud-arrow-up"></i> Publish</button>
+              </div>
+            </div>
+            <div class="preview-body">
+              <pre class="code-container"><code id="code-output">Loading preview...</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLI Docs Tab -->
+      <section id="tab-docs" class="tab-content">
+        <div class="page-header">
+          <h1 class="page-title">CLI Integration</h1>
+          <p class="page-desc">Learn how to synchronize guidelines across your team using our Python CLI utility.</p>
+        </div>
+
+        <div class="docs-card">
+          <h2>Getting Started with DevBrain CLI</h2>
+          <p style="margin: 1rem 0; line-height: 1.6; color: var(--text-muted);">
+            DevBrain comes with a zero-dependency, local python runner. Download the utility <a href="devbrain.py" download="devbrain.py" style="color: var(--color-secondary);">devbrain.py</a> and place it in your local code repository root.
+          </p>
+
+          <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">1. Check Available Rules</h3>
+          <p style="color: var(--text-muted); margin-bottom: 0.75rem;">List all remote templates directly from the catalog:</p>
+          <div class="docs-code">
+            <span>python3 devbrain.py list</span>
+            <i class="fa-regular fa-copy" style="cursor:pointer;" onclick="navigator.clipboard.writeText('python3 devbrain.py list'); showToast('Command copied!')"></i>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">2. Sync a Rule</h3>
+          <p style="color: var(--text-muted); margin-bottom: 0.75rem;">Download and write a rule to `.cursorrules` or `.agents.md` locally:</p>
+          <div class="docs-code">
+            <span>python3 devbrain.py sync clerk-sso-nextjs</span>
+            <i class="fa-regular fa-copy" style="cursor:pointer;" onclick="navigator.clipboard.writeText('python3 devbrain.py sync clerk-sso-nextjs'); showToast('Command copied!')"></i>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">3. Initialize a Custom Workspace Rule</h3>
+          <p style="color: var(--text-muted); margin-bottom: 0.75rem;">Scaffold a clean template in your repository root:</p>
+          <div class="docs-code">
+            <span>python3 devbrain.py init</span>
+            <i class="fa-regular fa-copy" style="cursor:pointer;" onclick="navigator.clipboard.writeText('python3 devbrain.py init'); showToast('Command copied!')"></i>
+          </div>
+
+          <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">4. Setup Graphify Codebase Indexing</h3>
+          <p style="color: var(--text-muted); margin-bottom: 0.75rem;">Initialize a tailored `.graphify.json` to optimize context search costs:</p>
+          <div class="docs-code">
+            <span>python3 devbrain.py graphify</span>
+            <i class="fa-regular fa-copy" style="cursor:pointer;" onclick="navigator.clipboard.writeText('python3 devbrain.py graphify'); showToast('Command copied!')"></i>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Detail Modal Overlay -->
+  <div class="modal-overlay" id="rule-detail-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2 id="modal-title" style="display:flex; align-items:center; gap:0.5rem;">
+          <span id="modal-icon">🔐</span> <span id="modal-title-text">Rule Title</span>
+        </h2>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="modal-info">
+          <div class="modal-meta-row">
+            <span><i class="fa-solid fa-code-fork" style="color: var(--color-primary);"></i> <span id="modal-framework">Next.js</span></span>
+            <span><i class="fa-solid fa-star" style="color: #fbbf24;"></i> <span id="modal-stars">142</span></span>
+            <span><i class="fa-solid fa-user" style="color: var(--color-secondary);"></i> <span id="modal-author">Author</span></span>
+          </div>
+          <h3>Description</h3>
+          <p class="modal-desc" id="modal-description">Detailed description of this rule template goes here...</p>
+          
+          <h3 style="margin-bottom:0.75rem;">Local Sync Command</h3>
+          <div class="docs-code" style="margin-bottom: 1.5rem;">
+            <span id="modal-sync-cmd">python3 devbrain.py sync clerk-sso-nextjs</span>
+            <i class="fa-regular fa-copy" style="cursor:pointer;" id="modal-copy-cmd-btn"></i>
+          </div>
+
+          <div style="display:flex; gap:0.5rem;">
+            <button class="action-btn" id="modal-apply-cursor"><i class="fa-solid fa-file-arrow-down"></i> Save .cursorrules</button>
+            <button class="action-btn secondary" id="modal-apply-agents"><i class="fa-solid fa-file-invoice"></i> Save AGENTS.md</button>
+          </div>
+        </div>
+        <div class="modal-preview">
+          <div class="preview-header">
+            <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted);">RULE SPECIFICATION</span>
+            <button class="preview-tab-btn" id="modal-copy-code-btn"><i class="fa-regular fa-copy"></i> Copy Code</button>
+          </div>
+          <div class="preview-body">
+            <pre class="code-container"><code id="modal-code-output">Markdown rule files content...</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast-notify">
+    <i class="fa-solid fa-check-circle" style="color: var(--color-secondary);"></i>
+    <span id="toast-message">Copied to clipboard!</span>
+  </div>
+
+  <!-- Script Modules -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

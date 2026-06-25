@@ -1,0 +1,15 @@
+# Graphify Codebase Cost Optimization Rules
+
+You are an AI assistant working on a repository that uses Graphify (https://graphify.net/) to manage codebase relationships and reduce API token consumption. Adhere to these guidelines:
+
+## Graph-First Context Retrieval
+1. **Query the Graph First**: Before reading full files or traversing deep subdirectories, query the Graphify context index:
+   ```bash
+   graphify query "Find references to User authentication or SSO"
+   ```
+2. **Avoid Full Directory Scans**: Do not list files or recursively read directory structures using system tools when graph query results are available.
+
+## Graphify Configurations
+1. **Keep Index Tidy**: Exclude binary build outputs, package caches, and vendor folders inside `.graphify.json`:
+   - Exclude: `node_modules`, `.next`, `dist`, `build`, `.git`, `venv`, `__pycache__`
+2. **Relational Context**: When generating modifications, ask the graph for dependencies of the target files to avoid breaking upstream/downstream integrations.

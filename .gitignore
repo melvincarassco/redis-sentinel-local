@@ -1,18 +1,10 @@
-# Logs and database dumps
-logs/
-*.log
-*.rdb
-*.aof
-
-# OS metadata
 .DS_Store
-Thumbs.db
-
-# Archives
-redis-sentinel-local-v1.zip
-
-# Editor settings
-.vscode/
-.idea/
-*.swp
-*.swo
+venv/
+__pycache__/
+*.log
+devbrain/test-project/
+devbrain/.graphify.json
+node_modules/
+dist/
+build/
+.graphify/

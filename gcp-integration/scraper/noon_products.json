@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "ASUS Vivobook 14 Laptop With 14-Inch Display, Core 5 120U Processor/16GB RAM/512GB SSD/Intel UHD Graphics/Windows 11 Home English Quiet Blue",
+    "price": "AED 2,399",
+    "url": "https://www.noon.com/uae-en/search/?q=laptops"
+  },
+  {
+    "id": 2,
+    "title": "Lenovo Refurbished - Thinkpad T460s Laptop With 14-Inch Full HD Display, Core i7-6600U Processor/Dual Core/6th Gen/8GB RAM/256GB SSD/Intel HD 520 Graphics/Windows 11 English black",
+    "price": "AED 749",
+    "url": "https://www.noon.com/uae-en/search/?q=laptops"
+  },
+  {
+    "id": 3,
+    "title": "Acer Aspire Spin 14 Laptop With 14-Inch IPS Touch Display, Core Ultra 5-115U Processor/16GB RAM/1TB SSD/Windows 11 Home silver",
+    "price": "AED 3,029",
+    "url": "https://www.noon.com/uae-en/search/?q=laptops"
+  },
+  {
+    "id": 4,
+    "title": "ASUS Vivobook 14 Laptop With 14-Inch Display, AMD Ryzen AI 5 330 Processor/16GB RAM/512GB SSD/Windows 11 Home English Platinum Gold",
+    "price": "AED 2,795",
+    "url": "https://www.noon.com/uae-en/search/?q=laptops"
+  },
+  {
+    "id": 5,
+    "title": "Acer Nitro Lite 16 Gaming Laptop With 16 Inch WUXGA (1920x1200) Display, Core i7-13620H Processor/16GB RAM/512GB SSD/6GB Nvidia GeForce RTX 3050 Graphics/Windows 11 Home/ English/Arabic Keyboard English Black",
+    "price": "AED 3,165",
+    "url": "https://www.noon.com/uae-en/search/?q=laptops"
+  }
+]

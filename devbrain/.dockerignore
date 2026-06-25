@@ -1,0 +1,10 @@
+.git
+.github
+.dockerignore
+Dockerfile
+docker-compose.yml
+test-project/
+venv/
+__pycache__/
+*.log
+.DS_Store
