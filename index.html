@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redis Sentinel Local (macOS) - Local High-Availability Cluster Setup</title>
+  
+  <!-- Primary SEO Meta Tags -->
+  <meta name="title" content="Redis Sentinel Local (macOS) - Local High-Availability Cluster Setup">
+  <meta name="description" content="Set up a local multi-instance Redis Sentinel replication cluster on macOS using Homebrew. Complete scripts, configs, and interactive config generator for developers.">
+  <meta name="keywords" content="Redis Sentinel, macOS, Local Redis Sentinel, Homebrew Redis, Redis replication, high availability local, Redis failover configuration, redis-server sentinel">
+  <meta name="author" content="Melvin Carassco">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com/melvincarassco/redis-sentinel-local">
+  <meta property="og:title" content="Redis Sentinel Local (macOS) - Local High-Availability Cluster Setup">
+  <meta property="og:description" content="Production-ready local Redis Sentinel configuration for macOS. Includes automated start/stop scripts, health checks, and a visual config helper.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://github.com/melvincarassco/redis-sentinel-local">
+  <meta property="twitter:title" content="Redis Sentinel Local (macOS) - Local High-Availability Cluster Setup">
+  <meta property="twitter:description" content="Set up a local multi-instance Redis Sentinel cluster on macOS. Premium automated script suite.">
+  <meta property="twitter:image" content="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="index.css">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Redis Sentinel Local macOS Setup Utility",
+    "description": "Production-ready local Redis Sentinel setups for developers using Homebrew Redis on macOS.",
+    "operatingSystem": "macOS",
+    "applicationCategory": "DeveloperApplication",
+    "license": "https://opensource.org/licenses/MIT",
+    "downloadUrl": "https://github.com/melvincarassco/redis-sentinel-local",
+    "softwareRequirements": "Homebrew, Redis >= 7.0",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Background Glow FX -->
+  <div class="glow-bg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+  </div>
+
+  <header class="header">
+    <div class="container nav-container">
+      <div class="logo">
+        <span class="logo-icon">❤️</span>
+        <span class="logo-text">Redis Sentinel <span class="badge">Local macOS</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#quickstart" class="nav-link">Quick Start</a>
+        <a href="#generator" class="nav-link">Config Generator</a>
+        <a href="#troubleshooting" class="nav-link">Troubleshooting</a>
+      </nav>
+      <a href="https://github.com/melvincarassco/redis-sentinel-local" class="btn btn-primary github-btn" id="github-btn-header" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+    </div>
+  </header>
+
+  <main class="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+      <div class="container">
+        <h1 class="hero-title">Production-Grade <span class="gradient-text">Redis Sentinel</span> Setup, Running Locally.</h1>
+        <p class="hero-subtitle">Test database failovers, master promotions, and Sentinel cluster connections easily on macOS using Homebrew Redis server processes.</p>
+        <div class="hero-buttons">
+          <a href="#quickstart" class="btn btn-accent btn-lg" id="get-started-btn">Get Started Now</a>
+          <a href="#generator" class="btn btn-secondary btn-lg" id="try-generator-btn">Generate Sentinel Conf</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture-section" id="architecture">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 class="section-title">Sentinel Cluster Topology</h2>
+          <p class="section-desc">A primary node paired with two Sentinel instances to detect node failures and perform automated state failover with quorum.</p>
+        </div>
+        
+        <div class="interactive-diagram">
+          <div class="node-grid">
+            
+            <div class="node-card master-node active" id="diag-master">
+              <div class="node-header">
+                <span class="node-dot"></span>
+                <span class="node-label">Master Node</span>
+              </div>
+              <div class="node-body">
+                <h3>billing-master</h3>
+                <p class="port-badge">Port: 6379</p>
+                <div class="status-indicator">Status: <span id="diag-master-status">ONLINE</span></div>
+              </div>
+            </div>
+
+            <div class="node-connectors">
+              <div class="line vertical"></div>
+              <div class="line diagonal-left"></div>
+              <div class="line diagonal-right"></div>
+            </div>
+
+            <div class="sentinels-container">
+              <div class="node-card sentinel-node active" id="diag-sentinel-1">
+                <div class="node-header">
+                  <span class="node-dot"></span>
+                  <span class="node-label">Sentinel 1</span>
+                </div>
+                <div class="node-body">
+                  <h3>sentinel-26379</h3>
+                  <p class="port-badge">Port: 26379</p>
+                  <p class="quorum-badge">Quorum: 1</p>
+                </div>
+              </div>
+
+              <div class="node-card sentinel-node active" id="diag-sentinel-2">
+                <div class="node-header">
+                  <span class="node-dot"></span>
+                  <span class="node-label">Sentinel 2</span>
+                </div>
+                <div class="node-body">
+                  <h3>sentinel-26380</h3>
+                  <p class="port-badge">Port: 26380</p>
+                  <p class="quorum-badge">Quorum: 1</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="diagram-controls text-center">
+            <button class="btn btn-sm btn-outline-danger" id="simulate-failover-btn">Simulate Master Crash</button>
+            <button class="btn btn-sm btn-outline-success hidden" id="reset-diagram-btn">Reset Master Node</button>
+            <div class="simulation-log" id="simulation-log">System normal. Sentinels monitoring Master on port 6379.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 class="section-title">Engineered for Reliability</h2>
+          <p class="section-desc">Everything you need to test production-like database high availability in your local development environment.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3>Homebrew Core</h3>
+            <p>Seamlessly coordinates with macOS Homebrew's native Redis server install. No custom daemon compile required.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Double Quorum Guard</h3>
+            <p>Runs dual Sentinel services concurrently (26379 and 26380) to accurately verify config rewrite permissions.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛠️</div>
+            <h3>Preconfigured Scripts</h3>
+            <p>Start, stop, check status, and install the local instances using highly readable Bash terminal scripts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section class="quickstart-section" id="quickstart">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 class="section-title">Four-Step Setup</h2>
+          <p class="section-desc">Execute these terminal commands to initialize the sentinel system in seconds.</p>
+        </div>
+        
+        <div class="terminal-wrapper">
+          <div class="terminal-header">
+            <div class="dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="terminal-title">bash - local setup</span>
+          </div>
+          <div class="terminal-body">
+            <div class="code-line"><span class="prompt">$</span> <span class="cmd">brew install redis</span> <button class="copy-btn" onclick="copyText('brew install redis')">Copy</button></div>
+            <div class="code-line"><span class="prompt">$</span> <span class="cmd">brew services start redis</span> <button class="copy-btn" onclick="copyText('brew services start redis')">Copy</button></div>
+            <div class="code-line"><span class="prompt">$</span> <span class="cmd">chmod +x scripts/*.sh && ./scripts/install.sh</span> <button class="copy-btn" onclick="copyText('chmod +x scripts/*.sh && ./scripts/install.sh')">Copy</button></div>
+            <div class="code-line"><span class="prompt">$</span> <span class="cmd">./scripts/start.sh && ./scripts/status.sh</span> <button class="copy-btn" onclick="copyText('./scripts/start.sh && ./scripts/status.sh')">Copy</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Configuration Generator Section -->
+    <section class="generator-section" id="generator">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 class="section-title">Sentinel Configuration Builder</h2>
+          <p class="section-desc">Generate standard Sentinel configuration files with custom parameters in real-time.</p>
+        </div>
+
+        <div class="generator-wrapper">
+          <div class="generator-form">
+            <h3>Configuration Inputs</h3>
+            
+            <div class="form-group">
+              <label for="input-master-name">Master Group Name</label>
+              <input type="text" id="input-master-name" value="billing-master" placeholder="e.g., mymaster">
+            </div>
+
+            <div class="grid grid-2">
+              <div class="form-group">
+                <label for="input-redis-port">Redis Port</label>
+                <input type="number" id="input-redis-port" value="6379">
+              </div>
+              <div class="form-group">
+                <label for="input-sentinel-port">Sentinel Port</label>
+                <input type="number" id="input-sentinel-port" value="26379">
+              </div>
+            </div>
+
+            <div class="grid grid-2">
+              <div class="form-group">
+                <label for="input-quorum">Quorum threshold</label>
+                <input type="number" id="input-quorum" value="1">
+              </div>
+              <div class="form-group">
+                <label for="input-down-after">Down-after (ms)</label>
+                <input type="number" id="input-down-after" value="5000">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="input-failover-timeout">Failover Timeout (ms)</label>
+              <input type="number" id="input-failover-timeout" value="10000">
+            </div>
+          </div>
+
+          <div class="generator-output">
+            <div class="output-header">
+              <h3>sentinel.conf Output</h3>
+              <button class="btn btn-sm btn-accent" id="btn-copy-config">Copy Configuration</button>
+            </div>
+            <pre class="code-box"><code id="code-output-block">port 26379
+sentinel monitor billing-master 127.0.0.1 6379 1
+sentinel down-after-milliseconds billing-master 5000
+sentinel failover-timeout billing-master 10000</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ & Troubleshooting Section -->
+    <section class="troubleshooting-section" id="troubleshooting">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-desc">Got questions about local Sentinel execution? Here are some quick answers.</p>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-item" id="faq-quorum">
+            <h3 class="accordion-header">Why use a quorum threshold of 1 in local development?</h3>
+            <div class="accordion-body">
+              <p>In a standard production environment, you should run at least 3 Sentinels with a quorum of 2 to avoid split-brain issues. Locally, however, we use a quorum of 1 so that even if one sentinel is offline, the remaining instance can successfully trigger and execute the master failover cycle.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="faq-config-rewrites">
+            <h3 class="accordion-header">Why did my config files get rewritten automatically?</h3>
+            <div class="accordion-body">
+              <p>Redis Sentinel design requires updating the state to disk. Sentinel rewrites the <code>sentinel.conf</code> file to append discovered peer sentinels, list existing replicas, and save state variables. This is expected behavior.</p>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="faq-connections">
+            <h3 class="accordion-header">How does my client driver connect to the Sentinels?</h3>
+            <div class="accordion-body">
+              <p>Rather than connecting directly to port <code>6379</code>, your application client SDK (such as ioredis, go-redis, or Lettuce) is configured with the addresses of the Sentinel instances. The driver requests the address of <code>billing-master</code> from the active Sentinel, and then establishes connection to the master node automatically.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer text-center">
+    <div class="container">
+      <p>Redis Sentinel Local. MIT Licensed. Open source helper scripts for macOS development.</p>
+      <p>Created by Melvin Carassco.</p>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
